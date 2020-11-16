@@ -1,4 +1,4 @@
-module github.com/neemiasjnr/otel-playground/oltp-exporter
+module github.com/neemiasjnr/otel-playground/otlp-exporter
 
 go 1.14
 

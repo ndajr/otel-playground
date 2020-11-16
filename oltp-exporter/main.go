@@ -37,7 +37,7 @@ func initProvider() func() {
 		sdktrace.WithConfig(sdktrace.Config{DefaultSampler: sdktrace.AlwaysSample()}),
 		sdktrace.WithResource(resource.New(
 			// the service name used to display traces in backends
-			semconv.ServiceNameKey.String("oltp-exporter-app"),
+			semconv.ServiceNameKey.String("otlp-exporter-app"),
 		)),
 		sdktrace.WithSpanProcessor(bsp),
 	)
@@ -54,7 +54,7 @@ func main() {
 	defer shutdown()
 	fmt.Println("Starting app..")
 
-	tr := global.Tracer("oltp-exporter-app")
+	tr := global.Tracer("otlp-exporter-app")
 
 	props := otelhttptrace.WithPropagators(otel.NewCompositeTextMapPropagator(propagators.TraceContext{}, propagators.Baggage{}))
 	client := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
