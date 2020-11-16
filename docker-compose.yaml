@@ -1,0 +1,27 @@
+version: '2'
+services:
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    ports:
+      - "14268:14268"
+      - "16686:16686"
+      - "14250"
+    environment:
+      - LOG_LEVEL=debug
+
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: otel-collector
+    command: ["--config=/conf/otel-collector-config.yaml", "--log-level=DEBUG"]
+    volumes:
+      - ./otel-collector-config.yaml:/conf/otel-collector-config.yaml
+    ports:
+      - "30080:30080"
+      - "9464:9464"
+      - "55680:55680"
+      - "55681:55681"
+    depends_on:
+      - jaeger-all-in-one
+    environment:
+      - JAEGER_REPORTER_LOG_SPANS=true 
