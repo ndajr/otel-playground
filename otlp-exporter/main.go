@@ -88,6 +88,6 @@ func main() {
 		return nil
 	}(context.Background())
 	if err != nil {
-		panic("unexpected error in http request: " + err.Error())
+		panic("unexpected error: " + err.Error())
 	}
 }
